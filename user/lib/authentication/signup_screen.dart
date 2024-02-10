@@ -3,7 +3,7 @@ import 'package:user/authentication/login_scren.dart';
 import 'package:user/methods/common_method.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key); // Fixed super call
+  const SignUpScreen({super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -11,31 +11,29 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController usertextEditingController = TextEditingController();
-  TextEditingController userPhoneEditingController = TextEditingController(); 
+  TextEditingController userPhoneEditingController = TextEditingController();
   TextEditingController emailtextEditingController = TextEditingController();
   TextEditingController passwordtextEditingController = TextEditingController();
   CommonMethods cMethod = CommonMethods();
 
-  void checkIfNetworkIsAvailable() { // Added void return type
+  checkIfNetworkIsAvailable() {
     cMethod.checkConnectivity(context);
 
-    void signUpForValidation() { // Added void return type
-      if (usertextEditingController.text.trim().length < 4) { // Fixed typo: 'lenght' to 'length'
-        cMethod.displaySnackBar(
-            "Your Name must be at least 4 or more characters.", context); // Fixed typo: 'lenght' to 'length'
-      } else if (userPhoneEditingController.text.trim().length >= 11) { // Fixed typo: 'lenght' to 'length'
-        cMethod.displaySnackBar("Your Number must be 10 digits.", context); // Fixed typo: 'lenght' to 'length'
-      } else if (!emailtextEditingController.text.contains("@")) { // Fixed email validation condition
-        cMethod.displaySnackBar("Please write a valid email.", context); // Fixed typo: 'valid email' to 'a valid email'
-      } else if (passwordtextEditingController.text.trim().length < 6) { // Changed length to be consistent with the message
-        cMethod.displaySnackBar(
-            "Password must have at least 6 or more characters", context); // Fixed typo: 'lenght' to 'length'
-      } else {
-        // register the user
-      }
-    }
-
-    signUpForValidation(); // Call signUpForValidation function
+    signUpForValidation() {
+      if (usertextEditingController.text.trim().length < 4) {
+    cMethod.displaySnackBar(
+        "Your Name must be at least 4 characters or more.", context);
+      } else if (userPhoneEditingController.text.trim().length < 10) {
+    cMethod.displaySnackBar("Your Number must be 10 digits.", context);
+  } else if (!emailtextEditingController.text.contains("@")) {
+    cMethod.displaySnackBar("Please write a valid email.", context);
+  } else if (passwordtextEditingController.text.trim().length < 6) {
+    cMethod.displaySnackBar(
+        "Password must have at least 6 characters or more.", context);
+  } else {
+    // register the user
+  }
+}
   }
 
   @override
@@ -47,9 +45,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             children: [
               Image.asset("assets/images/logo.png"),
-              const SizedBox(height: 20), // Added SizedBox for spacing
               const Text(
-                "Create a User's Account",
+                "Create a User\'s Account",
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               Padding(
@@ -73,6 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(
                       height: 22,
                     ),
+
                     TextField(
                       controller: emailtextEditingController,
                       keyboardType: TextInputType.emailAddress,
@@ -107,6 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(
                       height: 22,
                     ),
+
                     TextField(
                       controller: passwordtextEditingController,
                       obscureText: true,
@@ -125,7 +124,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         checkIfNetworkIsAvailable();
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.purple, // Fixed deprecated property
+                        backgroundColor:
+                            Colors.purple, // Fixed deprecated property
                         padding: const EdgeInsets.symmetric(
                             horizontal: 80, vertical: 10),
                       ),
