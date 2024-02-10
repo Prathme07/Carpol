@@ -240,6 +240,7 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+<<<<<<< HEAD
   google_maps:
     dependency: transitive
     description:
@@ -296,6 +297,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.15.4"
+=======
+>>>>>>> ecf8b65543238034d509979dbb3326aa35247546
   http:
     dependency: transitive
     description:

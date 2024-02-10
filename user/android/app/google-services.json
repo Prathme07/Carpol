@@ -3,6 +3,11 @@
     "project_number": "975321933553",
     "project_id": "carpol-972a8",
     "storage_bucket": "carpol-972a8.appspot.com"
+
+    "project_number": "766808657322",
+    "project_id": "carpol-7689c",
+    "storage_bucket": "carpol-7689c.appspot.com"
+
   },
   "client": [
     {
@@ -10,12 +15,19 @@
         "mobilesdk_app_id": "1:975321933553:android:798142f55e79b5b0052b50",
         "android_client_info": {
           "package_name": "com.vaibhav.usersapp"
+
+        "mobilesdk_app_id": "1:766808657322:android:9fa210097e6da482cd2fd3",
+        "android_client_info": {
+          "package_name": "com.carpol.user"
+
         }
       },
       "oauth_client": [],
       "api_key": [
         {
+
           "current_key": "AIzaSyC368ZWi_mLauhKZRlqTs-ejLd2idGJ7N4"
+
         }
       ],
       "services": {
