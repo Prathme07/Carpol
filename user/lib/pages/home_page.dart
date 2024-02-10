@@ -1,5 +1,11 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:user/global/global_var.dart';
+import 'dart:async';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -7,18 +13,46 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+class _HomePageState extends State<HomePage> {
+  final Completer<GoogleMapController> googleMapController = Completer<GoogleMapController>();
+  GoogleMapController? controllerGoogleMap;
 
-class _HomePageState extends State<HomePage>
-{
 
+  void updateMapTheme(GoogleMapController controller)
+  {
+    getJsonFileFromThemes("themes/dark_style.json").then((value)=> setGoogleMapStyle(value, controller));
+  }
+
+  Future<String> getJsonFileFromThemes(String mapStylePath) async
+  {
+    ByteData byteData = await rootBundle.load(mapStylePath);
+    var list = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+    return utf8.decode(list);
+  }
+
+  setGoogleMapStyle(String googleMapStyle, GoogleMapController controller)
+  {
+    controller.setMapStyle(googleMapStyle);
+  }
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(
-        child: Text(
-          "Home Page",
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        ),
+      body: Stack(
+        children: [
+          GoogleMap(
+              mapType: MapType.normal,
+              myLocationEnabled: true,
+              initialCameraPosition: googlePlexInitialPosition,
+              onMapCreated: (googleMapController mapController) {
+                controllerGoogleMap =  mapController;
+                updateMapTheme(controllerGoogleMap!);
+
+                
+                googleMapCompleterController.complete(controllerGoogleMap)
+              },
+            ),
+          
+        ],
       ),
     );
   }
