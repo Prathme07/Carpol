@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "766808657322",
+    "project_id": "carpol-7689c",
+    "storage_bucket": "carpol-7689c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766808657322:android:9fa210097e6da482cd2fd3",
+        "android_client_info": {
+          "package_name": "com.carpol.user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP4IvNi9y_T9ZGFEDYmE1SYjMsdqyAapI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
