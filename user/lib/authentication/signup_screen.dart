@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:user/authentication/login_scren.dart';
-import 'package:user/authentication/login_scren.dart';
 import 'package:user/methods/common_method.dart';
+import 'package:user/widgets/loading_dialog.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key); // Fixed super call
@@ -12,10 +14,13 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController usertextEditingController = TextEditingController();
-  TextEditingController userPhoneEditingController = TextEditingController(); // Added TextEditingController for user phone
+  TextEditingController userPhoneEditingController =
+      TextEditingController(); // Added TextEditingController for user phone
   TextEditingController emailtextEditingController = TextEditingController();
   TextEditingController passwordtextEditingController = TextEditingController();
   CommonMethods cMethod = CommonMethods();
+
+  get userNametextEditingController => null;
 
   void checkIfNetworkIsAvailable() {
     cMethod.checkConnectivity(context);
@@ -35,8 +40,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
       cMethod.displaySnackBar(
           "Password must have at least 6 characters or more.", context);
     } else {
-      // register the user
+      registerNewUser();
     }
+  }
+
+  registerNewUser() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) =>
+          LoadingDialog(messageText: "Register yourself here"),
+    );
+    final User? userFirebase = (await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+      email: emailtextEditingController.text.trim(),
+      password: passwordtextEditingController.text.trim(),
+    )
+            .catchError((errorMsg) {
+      cMethod.displaySnackBar(errorMsg.toString(), context);
+    }))
+        .user;
+    if (!context.mounted) return;
+    Navigator.pop(context);
+
+    DatabaseReference usersRef =
+        FirebaseDatabase.instance.ref().child("users").child(userFirebase!.uid);
+    Map userDataMap = {
+      "name": userNametextEditingController.text.trim(),
+      "email": emailtextEditingController.text.trim(),
+      "phone": userPhoneEditingController.text.trim(),
+      "id": userFirebase.uid,
+      "blockeStatus": "no",
+    };
+    usersRef.set(userDataMap);
+
+    Navigator.push(context, MaterialPageRoute(builder: (c)=> HomePage()));
   }
 
   @override
@@ -152,4 +190,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
+  
+  HomePage() {}
 }
