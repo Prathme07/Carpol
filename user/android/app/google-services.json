@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "975321933553",
+    "project_id": "carpol-972a8",
+    "storage_bucket": "carpol-972a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975321933553:android:798142f55e79b5b0052b50",
+        "android_client_info": {
+          "package_name": "com.vaibhav.usersapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC368ZWi_mLauhKZRlqTs-ejLd2idGJ7N4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
